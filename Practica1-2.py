@@ -37,3 +37,38 @@ plt.ylabel('Pixeles')
 plt.title('Histograma de la imagen (todos los canales)')
 plt.legend()
 plt.show()
+
+
+#**************************************** función que tome una imagen como entrada y genere un histograma de todos los canales
+def plot_histogram(image):
+    # Comprobar si la imagen es en escala de grises o a color
+    if len(image.shape) == 2:  # Imagen en escala de grises
+        hist = cv2.calcHist([image], [0], None, [256], [0, 256])
+
+        # Grafica el histograma
+        plt.figure()
+        plt.title("Histograma de la Imagen")
+        plt.xlabel("Valor de Píxel")
+        plt.ylabel("Número de Píxeles")
+
+        plt.plot(hist, color='k', label='Canal Gris')
+        plt.legend()
+        plt.show()
+    else:  # Imagen a color
+        hist_r = cv2.calcHist([image], [0], None, [256], [0, 256])
+        hist_g = cv2.calcHist([image], [1], None, [256], [0, 256])
+        hist_b = cv2.calcHist([image], [2], None, [256], [0, 256])
+
+        # Grafica los histogramas
+        plt.figure()
+        plt.title("Histograma de la Imagen")
+        plt.xlabel("Valor de Píxel")
+        plt.ylabel("Número de Píxeles")
+
+        plt.plot(hist_r, color='r', label='Canal Rojo')
+        plt.plot(hist_g, color='g', label='Canal Verde')
+        plt.plot(hist_b, color='b', label='Canal Azul')
+
+        plt.legend()
+        plt.show()
+    
